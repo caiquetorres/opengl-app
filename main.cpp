@@ -1,10 +1,20 @@
 #include <iostream>
 
-#include "./src/logger/logger.h"
-#include "src/errors/error.h"
+#include "src/graphics/window.h"
 
 int main()
 {
-  logger::info("Application", "Application started");
+  graphics::window window(1080, 720, "OpenGL");
+
+  window.open();
+
+  while (window.is_open())
+  {
+    window.clear();
+    window.update();
+  }
+
+  window.close();
+
   return 0;
 }
