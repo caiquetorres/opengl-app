@@ -1,7 +1,10 @@
 #include <iostream>
 
+#include "./src/logger/logger.h"
+#include "src/errors/error.h"
+
 int main()
 {
-  std::cout << "Hello World!" << std::endl;
+  logger::info("Application", "Application started");
   return 0;
 }
