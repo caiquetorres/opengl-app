@@ -1,7 +1,9 @@
 #include "./window.h"
 
 graphics::window::window(unsigned int width, unsigned int height, const std::string &title)
-    : m_Title(title), m_Width(width), m_Height(height) {}
+    : m_Title(title),
+      m_Width(width),
+      m_Height(height) {}
 
 graphics::window::~window() {}
 
@@ -10,7 +12,7 @@ void graphics::window::open()
   if (!glfwInit())
   {
     // TODO: create a custom exception for that.
-    logger::error("GLFW", "Error when initializing GLFW", nullptr);
+    logger::error("GLFW", "Error when initializing GLFW");
     throw std::exception();
   }
 
@@ -22,13 +24,12 @@ void graphics::window::open()
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-  m_Window = glfwCreateWindow((int)m_Width, (int)m_Height, m_Title.c_str(),
-                              nullptr, nullptr);
+  m_Window = glfwCreateWindow((int)m_Width, (int)m_Height, m_Title.c_str(), nullptr, nullptr);
 
   if (!m_Window)
   {
     // TODO: create a custom exception for that.
-    logger::error("GLFW", "Error when initializing GLFW", nullptr);
+    logger::error("GLFW", "Error when initializing GLFW");
     throw std::exception();
   }
 
@@ -38,7 +39,7 @@ void graphics::window::open()
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
   {
     // TODO: create a custom exception for that.
-    logger::error("GLAD", "Error when initializing GLAD", nullptr);
+    logger::error("GLAD", "Error when initializing GLAD");
     throw std::exception();
   }
 
