@@ -27,3 +27,12 @@ add_subdirectory(lib/glm EXCLUDE_FROM_ALL)
 add_executable(opengl main.cpp ${HEADER_FILES} ${SOURCE_FILES})
 
 target_link_libraries(opengl glfw glad glm)
+
+add_custom_target(
+        copy_resources ALL
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_SOURCE_DIR}/res
+        ${PROJECT_BINARY_DIR}/res
+        COMMENT "Copying resources into binary directory"
+)
+add_dependencies(opengl copy_resources)
