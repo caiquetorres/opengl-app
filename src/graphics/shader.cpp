@@ -89,15 +89,24 @@ void graphics::shader::use() const
 
 void graphics::shader::set_bool(const std::string &name, const bool value) const
 {
-  glCheckError(glUniform1i(glGetUniformLocation(m_Id, name.c_str()), (int)value));
+  int location = glGetUniformLocation(m_Id, name.c_str());
+  glCheckError(glUniform1i(location, (int)value));
 }
 
 void graphics::shader::set_int(const std::string &name, const int value) const
 {
-  glCheckError(glUniform1i(glGetUniformLocation(m_Id, name.c_str()), value));
+  int location = glGetUniformLocation(m_Id, name.c_str());
+  glCheckError(glUniform1i(location, value));
 }
 
 void graphics::shader::set_float(const std::string &name, const float value) const
 {
-  glCheckError(glUniform1f(glGetUniformLocation(m_Id, name.c_str()), (int)value));
+  int location = glGetUniformLocation(m_Id, name.c_str());
+  glCheckError(glUniform1f(location, (int)value));
+}
+
+void graphics::shader::set_mat4(const std::string &name, const glm::mat4 &value) const
+{
+  int location = glGetUniformLocation(m_Id, name.c_str());
+  glCheckError(glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value)));
 }

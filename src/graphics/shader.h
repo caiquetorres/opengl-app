@@ -4,6 +4,8 @@
 #pragma once
 
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -59,6 +61,13 @@ namespace graphics
      * @param value the uniform value.
      */
     void set_float(const std::string &name, float value) const;
+
+    /**
+     * @brief Sets an uniform mat4 value.
+     * @param name the uniform name.
+     * @param value the uniform value.
+     */
+    void set_mat4(const std::string &name, const glm::mat4 &value) const;
   };
 }
 
