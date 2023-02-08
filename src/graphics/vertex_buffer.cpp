@@ -14,6 +14,7 @@ graphics::vertex_buffer::vertex_buffer(std::vector<float> &vertices, int vertex_
   // The vertex size in bytes.
   int stride = (int)(8 * sizeof(float));
 
+  // TODO: Move this statements into vertex_array
   glCheckError(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, nullptr));
   glCheckError(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride, nullptr));
   glCheckError(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride, nullptr));
