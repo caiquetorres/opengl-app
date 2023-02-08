@@ -68,6 +68,12 @@ namespace graphics
     unsigned int get_height() const;
 
     /**
+     * @brief Gets the OpenGL version.
+     * @return the version string.
+     */
+    const std::string get_version() const;
+
+    /**
      * @brief Updates the window.
      */
     void update() const;

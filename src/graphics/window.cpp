@@ -1,4 +1,5 @@
 #include "./window.h"
+#include "window.h"
 
 graphics::window::window(unsigned int width, unsigned int height, const std::string &title)
     : m_Title(title),
@@ -43,6 +44,9 @@ void graphics::window::open()
     throw std::exception();
   }
 
+  glCheckError(glEnable(GL_DEPTH_TEST));
+
+  logger::debug("OpenGL", get_version());
   logger::info("Application", "Application started");
 }
 
@@ -65,6 +69,12 @@ unsigned int graphics::window::get_height() const
   return height;
 }
 
+const std::string graphics::window::get_version() const
+{
+  glCheckError(const std::string version((char *)glGetString(GL_VERSION)));
+  return version;
+}
+
 void graphics::window::close() const
 {
   logger::info("Application", "Application finished");
@@ -79,5 +89,5 @@ void graphics::window::update() const
 
 void graphics::window::clear() const
 {
-  glCheckError(glClear(GL_COLOR_BUFFER_BIT));
+  glCheckError(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
