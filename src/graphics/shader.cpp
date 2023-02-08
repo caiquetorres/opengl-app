@@ -6,7 +6,17 @@ graphics::shader::shader(const std::string &filePath)
 
   try
   {
-    stream.open(std::__fs::filesystem::current_path().string() + "/res/" + filePath);
+    auto path = std::__fs::filesystem::current_path().string() + "/build/res/" + filePath;
+    std::ifstream test(path);
+
+    if (!test)
+    {
+      logger::error("GLSL", "Error when reading \"" + filePath);
+      // TODO: create a custom exception.
+      throw std::exception();
+    }
+
+    stream.open(path);
 
     std::string version;
     std::getline(stream, version);
@@ -102,7 +112,7 @@ void graphics::shader::set_int(const std::string &name, const int value) const
 void graphics::shader::set_float(const std::string &name, const float value) const
 {
   int location = glGetUniformLocation(m_Id, name.c_str());
-  glCheckError(glUniform1f(location, (int)value));
+  glCheckError(glUniform1f(location, value));
 }
 
 void graphics::shader::set_mat4(const std::string &name, const glm::mat4 &value) const
