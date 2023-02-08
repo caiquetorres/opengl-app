@@ -20,6 +20,8 @@ namespace graphics
   public:
     vertex_array();
 
+    ~vertex_array();
+
     /**
      * @brief Gets the vertex buffer object identifier.
      * @return the identifier.

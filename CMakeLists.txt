@@ -20,6 +20,11 @@ file(
         ${CMAKE_SOURCE_DIR}/src/*.h
         ${CMAKE_SOURCE_DIR}/src/*.hpp)
 
+# Directories
+include_directories(lib/stb)
+link_directories(lib/stb)
+
+# Subdirectories
 add_subdirectory(lib/glfw EXCLUDE_FROM_ALL)
 add_subdirectory(lib/glad EXCLUDE_FROM_ALL)
 add_subdirectory(lib/glm EXCLUDE_FROM_ALL)

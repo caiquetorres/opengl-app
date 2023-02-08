@@ -1,15 +1,20 @@
 #include "element_buffer.h"
 
-graphics::element_buffer::element_buffer(std::vector<unsigned int> &indices, int vertexSize, unsigned int drawType)
+graphics::element_buffer::element_buffer(std::vector<unsigned int> &indices, int vertex_size, unsigned int draw_type)
     : m_Id(0),
       m_Indices(indices)
 {
-  glGenBuffers(1, &m_Id);
+  glCheckError(glGenBuffers(1, &m_Id));
   bind();
 
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(unsigned int), &indices[0], drawType);
-  glVertexAttribPointer(0, vertexSize, GL_FLOAT, GL_FALSE, (int)(vertexSize * sizeof(float)), (void *)0);
-  glEnableVertexAttribArray(0);
+  // The array size in bytes.
+  unsigned long int size = sizeof(float) * indices.size();
+  glCheckError(glBufferData(GL_ELEMENT_ARRAY_BUFFER, size * sizeof(unsigned int), &indices[0], draw_type));
+}
+
+graphics::element_buffer::~element_buffer()
+{
+  glCheckError(glDeleteBuffers(1, &m_Id));
 }
 
 unsigned int graphics::element_buffer::getId() const
