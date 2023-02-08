@@ -7,6 +7,11 @@ graphics::vertex_array::vertex_array()
   bind();
 }
 
+graphics::vertex_array::~vertex_array()
+{
+  glCheckError(glDeleteVertexArrays(1, &m_Id));
+}
+
 unsigned int graphics::vertex_array::get_id() const
 {
   return m_Id;
