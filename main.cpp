@@ -4,6 +4,7 @@
 #include "src/graphics/vertex_array.h"
 #include "src/graphics/vertex_buffer.h"
 #include "src/graphics/element_buffer.h"
+#include "src/graphics/vertex_buffer_layout.h"
 #include "src/graphics/shader.h"
 #include "src/graphics/texture.h"
 
@@ -22,9 +23,16 @@ int main()
       0, 1, 3,
       1, 2, 3};
 
+  graphics::vertex_buffer_layout layout;
+  layout.push<float>(3);
+  layout.push<float>(3);
+  layout.push<float>(2);
+
   graphics::vertex_array va;
-  graphics::vertex_buffer vb(vertices, 3, GL_STATIC_DRAW);
-  graphics::element_buffer eb(indices, 3, GL_STATIC_DRAW);
+  graphics::vertex_buffer vb(vertices, GL_STATIC_DRAW);
+  graphics::element_buffer eb(indices, GL_STATIC_DRAW);
+
+  va.add_buffer(vb, layout);
 
   graphics::shader basicShader("shaders/basic.glsl");
   graphics::texture basicTexture("textures/basic.jpg");
@@ -64,7 +72,7 @@ int main()
     basicShader.set_mat4("projection", projection);
 
     basicTexture.bind();
-    basicShader.set_int("u_Texture", 0);
+    basicShader.set_int("uTexture", 0);
 
     for (int i = 0; i < 10; i++)
     {
