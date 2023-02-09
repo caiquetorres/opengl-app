@@ -5,6 +5,8 @@
 
 #include <glad/glad.h>
 
+#include "./vertex_buffer.h"
+#include "./vertex_buffer_layout.h"
 #include "../errors/error.h"
 
 namespace graphics
@@ -37,6 +39,13 @@ namespace graphics
      * @brief Unbinds the vertex array.
      */
     void unbind() const;
+
+    /**
+     * @brief Setups a new vertex buffer.
+     * @param vb the vertex buffer reference.
+     * @param layout the vertex buffer layout reference.
+     */
+    void add_buffer(vertex_buffer &vb, vertex_buffer_layout &layout);
   };
 }
 
