@@ -21,6 +21,8 @@ namespace graphics
   class vertex_buffer_layout
   {
   private:
+    unsigned int m_TotalCount;
+
     unsigned int m_Stride;
 
     std::vector<vertex_buffer_layout_element> m_Elements;
@@ -43,6 +45,8 @@ namespace graphics
      * @return the stride.
      */
     unsigned int get_stride() const;
+
+    unsigned int get_total_count() const;
 
     /**
      * @brief Gets the vertex buffer layout elements.

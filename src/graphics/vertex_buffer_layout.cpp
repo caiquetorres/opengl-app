@@ -1,12 +1,14 @@
 #include "vertex_buffer_layout.h"
 
 graphics::vertex_buffer_layout::vertex_buffer_layout()
-    : m_Stride(0)
+    : m_Stride(0),
+      m_TotalCount(0)
 {
 }
 
 graphics::vertex_buffer_layout::vertex_buffer_layout(unsigned int stride)
-    : m_Stride(stride)
+    : m_Stride(stride),
+      m_TotalCount(0)
 {
 }
 
@@ -15,6 +17,7 @@ void graphics::vertex_buffer_layout::push<float>(unsigned int count)
 {
   vertex_buffer_layout_element element{GL_FLOAT, count, GL_FALSE};
   m_Elements.push_back(element);
+  m_TotalCount += count;
   m_Stride += count * vertex_buffer_layout::get_size_of_type(GL_FLOAT);
 }
 
@@ -23,6 +26,7 @@ void graphics::vertex_buffer_layout::push<unsigned int>(unsigned int count)
 {
   vertex_buffer_layout_element element{GL_UNSIGNED_INT, count, GL_FALSE};
   m_Elements.push_back(element);
+  m_TotalCount += count;
   m_Stride += count * vertex_buffer_layout::get_size_of_type(GL_UNSIGNED_INT);
 }
 
@@ -31,12 +35,18 @@ void graphics::vertex_buffer_layout::push<unsigned char>(unsigned int count)
 {
   vertex_buffer_layout_element element{GL_UNSIGNED_BYTE, count, GL_FALSE};
   m_Elements.push_back(element);
+  m_TotalCount += count;
   m_Stride += count * vertex_buffer_layout::get_size_of_type(GL_UNSIGNED_BYTE);
 }
 
 unsigned int graphics::vertex_buffer_layout::get_stride() const
 {
   return m_Stride;
+}
+
+unsigned int graphics::vertex_buffer_layout::get_total_count() const
+{
+  return m_TotalCount;
 }
 
 std::vector<graphics::vertex_buffer_layout_element> &graphics::vertex_buffer_layout::get_elements()

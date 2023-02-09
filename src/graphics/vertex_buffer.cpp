@@ -1,6 +1,6 @@
 #include "vertex_buffer.h"
 
-graphics::vertex_buffer::vertex_buffer(std::vector<float> &vertices, unsigned int draw_type)
+graphics::vertex_buffer::vertex_buffer(std::vector<vertex> &vertices, unsigned int draw_type)
     : m_Id(0),
       m_Vertices(vertices)
 {
@@ -8,7 +8,7 @@ graphics::vertex_buffer::vertex_buffer(std::vector<float> &vertices, unsigned in
   bind();
 
   // The array size in bytes.
-  unsigned long int size = sizeof(float) * vertices.size();
+  unsigned long int size = sizeof(vertex) * vertices.size();
   glCheckError(glBufferData(GL_ARRAY_BUFFER, size, &vertices[0], draw_type));
 }
 

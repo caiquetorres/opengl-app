@@ -1,7 +1,9 @@
 #include <vector>
+#include <iostream>
 
 #include "src/graphics/window.h"
 #include "src/graphics/vertex_array.h"
+#include "src/graphics/vertex.h"
 #include "src/graphics/vertex_buffer.h"
 #include "src/graphics/element_buffer.h"
 #include "src/graphics/vertex_buffer_layout.h"
@@ -13,24 +15,25 @@ int main()
   graphics::window window(1080, 720, "OpenGL");
   window.open();
 
-  std::vector<float> vertices = {
-      0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-      0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-      -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-      -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f};
+  std::vector<graphics::vertex> vertices = {
+      {{0.5f, 0.5f, 0.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},
+      {{0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f}, {1.0f, 0.0f}},
+      {{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},
+      {{-0.5f, 0.5f, 0.0f}, {1.0f, 1.0f, 0.0f}, {0.0f, 1.0f}},
+  };
 
   std::vector<unsigned int> indices = {
       0, 1, 3,
       1, 2, 3};
 
+  graphics::vertex_array va;
+  graphics::vertex_buffer vb(vertices, GL_STATIC_DRAW);
+  graphics::element_buffer eb(indices, GL_STATIC_DRAW);
+
   graphics::vertex_buffer_layout layout;
   layout.push<float>(3);
   layout.push<float>(3);
   layout.push<float>(2);
-
-  graphics::vertex_array va;
-  graphics::vertex_buffer vb(vertices, GL_STATIC_DRAW);
-  graphics::element_buffer eb(indices, GL_STATIC_DRAW);
 
   va.add_buffer(vb, layout);
 
@@ -82,7 +85,7 @@ int main()
 
       basicShader.set_mat4("model", model);
 
-      glDrawElements(GL_TRIANGLES, (int)vertices.size(), GL_UNSIGNED_INT, 0);
+      glDrawElements(GL_TRIANGLES, layout.get_total_count() * vertices.size(), GL_UNSIGNED_INT, 0);
     }
 
     window.update();
