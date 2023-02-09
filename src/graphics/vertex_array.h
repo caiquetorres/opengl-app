@@ -23,15 +23,20 @@ namespace graphics
     ~vertex_array();
 
     /**
-     * @brief Gets the vertex buffer object identifier.
+     * @brief Gets the vertex array object identifier.
      * @return the identifier.
      */
     unsigned int get_id() const;
 
     /**
-     * @brief Binds the vertex buffer.
+     * @brief Binds the vertex array.
      */
     void bind() const;
+
+    /**
+     * @brief Unbinds the vertex array.
+     */
+    void unbind() const;
   };
 }
 

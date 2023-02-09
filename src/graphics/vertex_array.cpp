@@ -21,3 +21,8 @@ void graphics::vertex_array::bind() const
 {
   glCheckError(glBindVertexArray(m_Id));
 }
+
+void graphics::vertex_array::unbind() const
+{
+  glCheckError(glBindVertexArray(0));
+}
