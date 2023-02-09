@@ -38,3 +38,8 @@ void graphics::vertex_buffer::bind() const
 {
   glCheckError(glBindBuffer(GL_ARRAY_BUFFER, m_Id));
 }
+
+void graphics::vertex_buffer::unbind() const
+{
+  glCheckError(glBindBuffer(GL_ARRAY_BUFFER, 0));
+}

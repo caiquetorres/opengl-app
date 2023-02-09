@@ -44,6 +44,11 @@ namespace graphics
      * @brief Binds the vertex buffer.
      */
     void bind() const;
+
+    /**
+     * @brief Unbinds the vertex buffer.
+     */
+    void unbind() const;
   };
 }
 
