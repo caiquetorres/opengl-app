@@ -23,10 +23,9 @@ namespace graphics
   public:
     /**
      * @param indices the index set.
-     * @param index_size the vertex element size.
      * @param draw_type the frequency which the array will be accessed.
      */
-    element_buffer(std::vector<unsigned int> &indices, int index_size, unsigned int draw_type);
+    element_buffer(std::vector<unsigned int> &indices, unsigned int draw_type);
 
     ~element_buffer();
 

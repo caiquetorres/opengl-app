@@ -1,6 +1,6 @@
 #include "element_buffer.h"
 
-graphics::element_buffer::element_buffer(std::vector<unsigned int> &indices, int vertex_size, unsigned int draw_type)
+graphics::element_buffer::element_buffer(std::vector<unsigned int> &indices, unsigned int draw_type)
     : m_Id(0),
       m_Indices(indices)
 {
