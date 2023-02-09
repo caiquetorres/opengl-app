@@ -2,9 +2,9 @@
 
 #ifdef COMPILING_VERTEX_SHADER
 
-layout (location = 0) in vec3 aPosition;
-layout (location = 1) in vec3 aColor;
-layout (location = 2) in vec2 aTexCoord;
+layout(location = 0) in vec3 aPosition;
+layout(location = 1) in vec3 aColor;
+layout(location = 2) in vec2 aTexCoord;
 
 out vec3 vColor;
 out vec2 vTexCoord;
@@ -13,8 +13,7 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
-void main()
-{
+void main() {
     gl_Position = projection * view * model * vec4(aPosition, 1.0);
     vColor = aColor;
     vTexCoord = aTexCoord;
@@ -31,10 +30,9 @@ in vec2 vTexCoord;
 
 uniform sampler2D uTexture;
 
-void main()
-{
-    vec2 uv = vec2(vTexCoord.x + 0.5, vTexCoord.y + 0.5);
-    color = texture(uTexture, uv);
+void main() {
+    vec2 uv = vTexCoord + vec2(0.5, 0.5);
+    color = texture(uTexture, uv) * vec4(vColor, 1.0);
 }
 
 #endif
