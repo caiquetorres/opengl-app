@@ -1,6 +1,6 @@
 #include "element_buffer.h"
 
-graphics::element_buffer::element_buffer(std::vector<unsigned int> &indices, int vertex_size, unsigned int draw_type)
+graphics::element_buffer::element_buffer(std::vector<unsigned int> &indices, unsigned int draw_type)
     : m_Id(0),
       m_Indices(indices)
 {
@@ -30,4 +30,9 @@ unsigned long graphics::element_buffer::size() const
 void graphics::element_buffer::bind() const
 {
   glCheckError(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id));
+}
+
+void graphics::element_buffer::unbind() const
+{
+  glCheckError(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 }

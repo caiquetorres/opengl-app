@@ -1,33 +1,32 @@
 #include <vector>
+#include <memory>
 
 #include "src/graphics/window.h"
-#include "src/graphics/vertex_array.h"
-#include "src/graphics/vertex_buffer.h"
-#include "src/graphics/element_buffer.h"
+#include "src/graphics/vertex.h"
 #include "src/graphics/shader.h"
 #include "src/graphics/texture.h"
+#include "src/graphics/mesh.h"
 
 int main()
 {
   graphics::window window(1080, 720, "OpenGL");
   window.open();
 
-  std::vector<float> vertices = {
-      0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-      0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-      -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-      -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f};
+  std::vector<graphics::vertex> vertices = {
+      {{0.5f, 0.5f, 0.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},
+      {{0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f}, {1.0f, 0.0f}},
+      {{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},
+      {{-0.5f, 0.5f, 0.0f}, {1.0f, 1.0f, 0.0f}, {0.0f, 1.0f}},
+  };
 
   std::vector<unsigned int> indices = {
       0, 1, 3,
       1, 2, 3};
 
-  graphics::vertex_array va;
-  graphics::vertex_buffer vb(vertices, 3, GL_STATIC_DRAW);
-  graphics::element_buffer eb(indices, 3, GL_STATIC_DRAW);
-
   graphics::shader basicShader("shaders/basic.glsl");
   graphics::texture basicTexture("textures/basic.jpg");
+
+  graphics::mesh mesh(vertices, indices, basicTexture);
 
   glm::vec3 positions[] = {
       glm::vec3(0.0f, 0.0f, 0.0f),
@@ -41,14 +40,9 @@ int main()
       glm::vec3(1.5f, 0.2f, -1.5f),
       glm::vec3(-1.3f, 1.0f, -1.5f)};
 
-  va.bind();
-
   while (window.is_open())
   {
     window.clear();
-
-    basicShader.use();
-    vb.bind();
 
     const float radius = 10.0f;
     float camX = sin(glfwGetTime()) * radius;
@@ -63,9 +57,6 @@ int main()
     basicShader.set_mat4("view", view);
     basicShader.set_mat4("projection", projection);
 
-    basicTexture.bind();
-    basicShader.set_int("u_Texture", 0);
-
     for (int i = 0; i < 10; i++)
     {
       glm::mat4 model = glm::mat4(1.0f);
@@ -74,7 +65,7 @@ int main()
 
       basicShader.set_mat4("model", model);
 
-      glDrawElements(GL_TRIANGLES, (int)vertices.size(), GL_UNSIGNED_INT, 0);
+      mesh.draw(basicShader);
     }
 
     window.update();

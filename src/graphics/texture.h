@@ -34,6 +34,8 @@ namespace graphics
 
     ~texture();
 
+    unsigned int get_id() const;
+
     /**
      * @brief Binds the texture.
      * @param slot the texture layer.

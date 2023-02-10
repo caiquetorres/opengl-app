@@ -3,10 +3,11 @@
 
 #pragma once
 
-#include <glad/glad.h>
 #include <vector>
+#include <glad/glad.h>
 
 #include "../errors/error.h"
+#include "vertex.h"
 
 namespace graphics
 {
@@ -18,15 +19,14 @@ namespace graphics
   private:
     unsigned int m_Id;
 
-    std::vector<float> m_Vertices;
+    std::vector<vertex> m_Vertices;
 
   public:
     /**
      * @param vertices the vertices set.
-     * @param vertex_size the vertex element size.
      * @param draw_type the frequency which the array will be accessed.
      */
-    vertex_buffer(std::vector<float> &vertices, int vertex_size, unsigned int draw_type);
+    vertex_buffer(std::vector<vertex> &vertices, unsigned int draw_type);
 
     /**
      * @brief Gets the vertex buffer object identifier.
@@ -44,6 +44,11 @@ namespace graphics
      * @brief Binds the vertex buffer.
      */
     void bind() const;
+
+    /**
+     * @brief Unbinds the vertex buffer.
+     */
+    void unbind() const;
   };
 }
 
