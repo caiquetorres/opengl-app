@@ -7,7 +7,7 @@ graphics::texture::texture(const std::string &file_path)
       m_File_path(file_path),
       m_Height(0),
       m_Width(0),
-      m_LocalBuffer(nullptr),
+      m_LocalBuffer(),
       m_BPP(0)
 {
 
@@ -43,6 +43,11 @@ graphics::texture::texture(const std::string &file_path)
 graphics::texture::~texture()
 {
   glCheckError(glDeleteTextures(1, &m_Id));
+}
+
+unsigned int graphics::texture::get_id() const
+{
+  return m_Id;
 }
 
 void graphics::texture::bind(unsigned int slot) const
