@@ -5,8 +5,8 @@
 
 #include <glad/glad.h>
 
-#include "./vertex_buffer.h"
-#include "./vertex_buffer_layout.h"
+#include "vertex_buffer.h"
+#include "vertex_buffer_layout.h"
 #include "../errors/error.h"
 
 namespace graphics
