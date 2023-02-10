@@ -45,6 +45,8 @@ namespace graphics
      * @brief Binds the element buffer.
      */
     void bind() const;
+
+    void unbind() const;
   };
 }
 

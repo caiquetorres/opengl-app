@@ -31,3 +31,8 @@ void graphics::element_buffer::bind() const
 {
   glCheckError(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id));
 }
+
+void graphics::element_buffer::unbind() const
+{
+  glCheckError(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+}
