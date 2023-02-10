@@ -1,4 +1,3 @@
-#include "./window.h"
 #include "window.h"
 
 graphics::window::window(unsigned int width, unsigned int height, const std::string &title)
