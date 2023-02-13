@@ -43,6 +43,17 @@ void graphics::window::open()
     throw std::exception();
   }
 
+  ImGui::CreateContext();
+
+  ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
+  ImGui_ImplOpenGL3_Init();
+
+  ImGuiIO &io = ImGui::GetIO();
+  (void)io;
+
+  ImFont *pFont = io.Fonts->AddFontDefault();
+  io.Fonts->Build();
+
   glCheckError(glEnable(GL_DEPTH_TEST));
 
   logger::debug("OpenGL", get_version());
