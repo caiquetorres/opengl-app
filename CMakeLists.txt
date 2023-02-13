@@ -3,7 +3,7 @@ project(opengl)
 
 set(CMAKE_CXX_STANDARD 14)
 
-include(/Applications/vcpkg/scripts/buildsystems/vcpkg.cmake)
+include(${CMAKE_TOOLCHAIN_FILE})
 
 # # If the application calls OpenGL directly
 find_package(OpenGL REQUIRED)

@@ -16,14 +16,3 @@ cd opengl-app
 ```sh
 ./run.sh
 ```
-
-### Running for Windows
-
-```sh
-cmake -B "build"
-make -C "build"
-```
-
-```sh
-./build/opengl
-```
