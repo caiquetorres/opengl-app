@@ -11,12 +11,12 @@ graphics::texture::texture(const std::string &file_path)
       m_BPP(0)
 {
 
-  auto path = std::__fs::filesystem::current_path().string() + "/build/res/" + file_path.c_str();
+  std::string path = "res/" + file_path;
   std::ifstream test(path);
 
   if (!test)
   {
-    logger::error("STD IMAGE", "Error when reading \"" + path);
+    logger::error("STD IMAGE", "Error when reading \"" + file_path);
     // TODO: create a custom exception.
     throw std::exception();
   }

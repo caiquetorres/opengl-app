@@ -1,17 +1,17 @@
 #include "shader.h"
 
-graphics::shader::shader(const std::string &filePath)
+graphics::shader::shader(const std::string &file_path)
 {
   std::fstream stream;
 
   try
   {
-    auto path = std::__fs::filesystem::current_path().string() + "/build/res/" + filePath;
+    std::string path = "res/" + file_path;
     std::ifstream test(path);
 
     if (!test)
     {
-      logger::error("GLSL", "Error when reading \"" + filePath);
+      logger::error("GLSL", "Error when reading \"" + file_path);
       // TODO: create a custom exception.
       throw std::exception();
     }
@@ -49,7 +49,7 @@ graphics::shader::shader(const std::string &filePath)
   catch (std::ifstream::failure &e)
   {
     std::string m = std::string(e.what());
-    logger::error("GLSL", "Error when reading \"" + filePath, m);
+    logger::error("GLSL", "Error when reading \"" + file_path, m);
 
     // TODO: create a custom exception.
     throw std::exception();
