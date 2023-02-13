@@ -27,12 +27,21 @@ graphics::texture::texture(const std::string &file_path)
   glCheckError(glGenTextures(1, &m_Id));
   glCheckError(glBindTexture(GL_TEXTURE_2D, m_Id));
 
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glCheckError(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
+  glCheckError(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+  glCheckError(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
+  glCheckError(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
+
+  // Mirror image x axis
+  for (unsigned int i = 0, j = (m_Width * m_Height * 3) - 1; i <= j; i++, j--)
+  {
+    m_LocalBuffer[i] ^= m_LocalBuffer[j];
+    m_LocalBuffer[j] = m_LocalBuffer[i] ^ m_LocalBuffer[j];
+    m_LocalBuffer[i] ^= m_LocalBuffer[j];
+  }
 
   glCheckError(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, m_LocalBuffer));
+  glCheckError(glGenerateMipmap(GL_TEXTURE_2D));
 
   if (m_LocalBuffer)
   {

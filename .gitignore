@@ -1,3 +1,6 @@
+# Dependencies
+/vcpkg_installed
+
 # IDE/Code editor folders
 /.idea
 /.vscode
@@ -6,3 +9,4 @@
 /cmake-build-debug
 /cmake-build-release
 /build
+/imgui.ini
